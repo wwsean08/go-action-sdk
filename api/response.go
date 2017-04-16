@@ -10,6 +10,7 @@ type RootResponse struct {
 
 type ExpectedInput struct {
 	PossibleIntents []ExpectedIntent `json:"possible_intents"`
+	InputPrompt_    InputPrompt      `json:"input_prompt"`
 }
 
 type ExpectedIntent struct {
@@ -33,4 +34,9 @@ type PermissionValueSpec struct {
 type SpeechResponse struct {
 	TextToSpeech string `json:"text_to_speech"`
 	SSML         string `json:"ssml"`
+}
+
+type InputPrompt struct {
+	InitialPrompts []SpeechResponse `json:"initial_prompts"`
+	NoInputPrompts []SpeechResponse `json:"no_input_prompts"`
 }
