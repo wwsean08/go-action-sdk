@@ -33,7 +33,7 @@ type PermissionValueSpec struct {
 
 type SpeechResponse struct {
 	TextToSpeech string `json:"text_to_speech"`
-	SSML         string `json:"ssml"`
+	SSML         string `json:"ssml,omitempty"`
 }
 
 type InputPrompt struct {
