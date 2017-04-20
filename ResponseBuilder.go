@@ -6,7 +6,7 @@ type ResponseBuilder interface {
 	// Generates a response to the users query, no further questions are asked
 	TellResponse(message string) api.RootResponse
 	// Generates a response that will ask the user some sort of input.
-	AskResponse(message string, conversationToken string, noInputPrompt []string) api.RootResponse
+	AskResponse(message string, conversationToken *string, noInputPrompt []string) api.RootResponse
 }
 
 type defaultResponse struct {
@@ -23,14 +23,14 @@ func (r defaultResponse) TellResponse(message string) api.RootResponse {
 	rootr := r.rootResponse
 	rootr.ExpectUserResponse = false
 	fResponse := api.FinalResponse{}
-	sResponse := api.SpeechResponse{TextToSpeech: message, SSML: ""}
+	sResponse := api.SpeechResponse{TextToSpeech: &message, SSML: nil}
 	fResponse.SpeechResponse_ = sResponse
 	rootr.FinalResponse_ = fResponse
 
 	return rootr
 }
 
-func (r defaultResponse) AskResponse(message string, conversationToken string, noInputPrompt []string) api.RootResponse {
+func (r defaultResponse) AskResponse(message string, conversationToken *string, noInputPrompt []string) api.RootResponse {
 	rootr := r.rootResponse
 	rootr.ExpectUserResponse = true
 	// if conversationToken is a blank string it'll still get omitted at the json
@@ -38,7 +38,7 @@ func (r defaultResponse) AskResponse(message string, conversationToken string, n
 	rootr.ConversationToken = conversationToken
 	eInputs := api.ExpectedInput{}
 	iPrompt := api.InputPrompt{}
-	sResponse := api.SpeechResponse{TextToSpeech: message, SSML: ""}
+	sResponse := api.SpeechResponse{TextToSpeech: &message, SSML: nil}
 	sResponseSlice := make([]api.SpeechResponse, 1)
 	sResponseSlice[0] = sResponse
 	iPrompt.InitialPrompts = sResponseSlice
@@ -46,13 +46,13 @@ func (r defaultResponse) AskResponse(message string, conversationToken string, n
 	if len(noInputPrompt) > 0 {
 		noInPrompts := make([]api.SpeechResponse, len(noInputPrompt))
 		for index, element := range noInputPrompt {
-			noInPrompts[index] = api.SpeechResponse{TextToSpeech: element, SSML: ""}
+			noInPrompts[index] = api.SpeechResponse{TextToSpeech: &element, SSML: nil}
 		}
 		iPrompt.NoInputPrompts = noInPrompts
 	}
 	eInputs.InputPrompt_ = iPrompt
 
-	eIntent := api.ExpectedIntent{Intent: api.TEXT_INTENT}
+	eIntent := api.ExpectedIntent{Intent: &api.TEXT_INTENT}
 	eIntentSlice := make([]api.ExpectedIntent, 1)
 	eIntentSlice[0] = eIntent
 	eInputs.PossibleIntents = eIntentSlice
