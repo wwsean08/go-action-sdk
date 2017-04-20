@@ -3,9 +3,12 @@ package go_action_sdk
 import "github.com/wwsean08/go-action-sdk/api"
 
 type ResponseBuilder interface {
-	// Generates a response to the users query, no further questions are asked
+	// Generates a new response object which ends the discussion, not asking the user for any sort of prompt.
 	TellResponse(message string, conversationToken *string) api.RootResponse
-	// Generates a response that will ask the user some sort of input.
+	// Generates a response object which asks the user to respond.  You can also provide a list of strings that
+	// can be said to not provide a response.  A conversation token is key in making sure you do not lose the context of
+	// the conversation, make sure this is either the same one that is sent from the user or if this is a new request a
+	// unique one as any response that comes back will contain it and can be used for correlation.
 	AskResponse(message string, conversationToken *string, noInputPrompt []string) api.RootResponse
 }
 
