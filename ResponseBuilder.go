@@ -52,7 +52,7 @@ func (r defaultResponse) AskResponse(message string, conversationToken *string, 
 	}
 	eInputs.InputPrompt_ = iPrompt
 
-	eIntent := api.ExpectedIntent{Intent: &api.TEXT_INTENT}
+	eIntent := api.ExpectedIntent{Intent: api.TEXT_INTENT}
 	eIntentSlice := make([]api.ExpectedIntent, 1)
 	eIntentSlice[0] = eIntent
 	eInputs.PossibleIntents = eIntentSlice

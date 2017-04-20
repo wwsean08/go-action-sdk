@@ -14,7 +14,7 @@ type ExpectedInput struct {
 }
 
 type ExpectedIntent struct {
-	Intent          *string        `json:"intent"`
+	Intent          string         `json:"intent"`
 	InputValueSpec_ InputValueSpec `json:"input_value_spec"`
 }
 
