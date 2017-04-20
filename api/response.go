@@ -4,7 +4,7 @@ package api
 type RootResponse struct {
 	ConversationToken  *string         `json:"conversation_token"`
 	ExpectUserResponse bool            `json:"expect_user_response"`
-	ExpectedInputs     []ExpectedInput `json:"expected_inputs"`
+	ExpectedInputs     []ExpectedInput `json:"expected_inputs,omitempty"`
 	FinalResponse_     FinalResponse   `json:"final_response"`
 }
 
