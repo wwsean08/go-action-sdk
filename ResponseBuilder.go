@@ -4,7 +4,7 @@ import "github.com/wwsean08/go-action-sdk/api"
 
 type ResponseBuilder interface {
 	// Generates a response to the users query, no further questions are asked
-	TellResponse(message string) api.RootResponse
+	TellResponse(message string, conversationToken *string) api.RootResponse
 	// Generates a response that will ask the user some sort of input.
 	AskResponse(message string, conversationToken *string, noInputPrompt []string) api.RootResponse
 }
@@ -19,13 +19,14 @@ func NewResponseBuilder() ResponseBuilder {
 	return defaultResponse{rootResponse: rootResponse}
 }
 
-func (r defaultResponse) TellResponse(message string) api.RootResponse {
+func (r defaultResponse) TellResponse(message string, conversationToken *string) api.RootResponse {
 	rootr := r.rootResponse
 	rootr.ExpectUserResponse = false
 	fResponse := api.FinalResponse{}
 	sResponse := api.SpeechResponse{TextToSpeech: &message, SSML: nil}
 	fResponse.SpeechResponse_ = sResponse
 	rootr.FinalResponse_ = fResponse
+	rootr.ConversationToken = conversationToken
 
 	return rootr
 }
