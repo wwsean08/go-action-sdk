@@ -2,7 +2,7 @@ package api
 
 // RootResponse object which will be formatted to json and sent back to google and onto the user.
 type RootResponse struct {
-	ConversationToken  string          `json:"conversation_token,omitempty"`
+	ConversationToken  string          `json:"conversation_token"`
 	ExpectUserResponse bool            `json:"expect_user_response"`
 	ExpectedInputs     []ExpectedInput `json:"expected_inputs"`
 	FinalResponse_     FinalResponse   `json:"final_response"`
@@ -33,7 +33,7 @@ type PermissionValueSpec struct {
 
 type SpeechResponse struct {
 	TextToSpeech string `json:"text_to_speech"`
-	SSML         string `json:"ssml,omitempty"`
+	SSML         string `json:"ssml"`
 }
 
 type InputPrompt struct {
