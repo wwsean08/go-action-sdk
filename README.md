@@ -14,4 +14,5 @@ This is currently under active development and is not ready.  I will merge it in
 * Test and (probably) fix the askResponse function in ResponseBuilder.go.
 * Add various other handlers to abstract interacting with the API based on documentation [here.](https://developers.google.com/actions/reference/conversation)
 * Add examples/sample code of how to use it.
+* Add validation for simple mistakes, for example noInputPromot has a limit of 3 SpeechResponse objects per [spec](https://developers.google.com/actions/reference/conversation#InputPrompt)
 * More to come
