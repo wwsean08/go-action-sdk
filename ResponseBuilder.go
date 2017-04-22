@@ -4,7 +4,7 @@ import "github.com/wwsean08/go-action-sdk/api"
 
 type MessageMode uint8
 
-// Useful for custom response handlers to distinguish between response modes and generate a response in a generic way
+// Useful for response builders to distinguish between response modes and generate a response in a generic way
 const (
 	TEXT_MODE MessageMode = iota
 	SSML_MODE
@@ -20,6 +20,11 @@ type ResponseBuilder interface {
 	// the conversation, make sure this is either the same one that is sent from the user or if this is a new request a
 	// unique one as any response that comes back will contain it and can be used for correlation.
 	AskResponse(message string, conversationToken *string, noInputPrompt []string) api.RootResponse
+	// Generates a response object which asks the user to respond using SSML.  You can also provide a list of strings that
+	// can be said to not provide a response.  A conversation token is key in making sure you do not lose the context of
+	// the conversation, make sure this is either the same one that is sent from the user or if this is a new request a
+	// unique one as any response that comes back will contain it and can be used for correlation.
+	AskResponseSSML(message string, conversationToken *string, noInputPrompt []string) api.RootResponse
 }
 
 type defaultResponse struct {
@@ -51,7 +56,7 @@ func (r defaultResponse) tellResponse(message string, conversationToken *string,
 		sResponse.TextToSpeech = nil
 	}
 	fResponse.SpeechResponse_ = sResponse
-	rootr.FinalResponse_ = fResponse
+	rootr.FinalResponse_ = &fResponse
 	rootr.ConversationToken = conversationToken
 
 	return rootr

@@ -5,7 +5,7 @@ type RootResponse struct {
 	ConversationToken  *string         `json:"conversation_token"`
 	ExpectUserResponse bool            `json:"expect_user_response"`
 	ExpectedInputs     []ExpectedInput `json:"expected_inputs,omitempty"`
-	FinalResponse_     FinalResponse   `json:"final_response,omitempty"`
+	FinalResponse_     *FinalResponse  `json:"final_response,omitempty"`
 }
 
 type ExpectedInput struct {
@@ -19,7 +19,7 @@ type ExpectedIntent struct {
 }
 
 type FinalResponse struct {
-	SpeechResponse_ SpeechResponse `json:"speech_response,omitempty"`
+	SpeechResponse_ SpeechResponse `json:"speech_response"`
 }
 
 type InputValueSpec struct {
