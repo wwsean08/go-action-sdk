@@ -32,10 +32,12 @@ test: fmt
 	$(GO) vet $(packages)
 	$(GO) test -race -cover $(packages)
 
-cover: fmt
-	$(GO) vet $(packages)
+cover:
 	echo "mode: set" > coverage-all.out
 	$(foreach pkg,$(packages),\
 		go test -coverprofile=coverage.out $(pkg);\
 		tail -n +2 coverage.out >> coverage-all.out;)
 	go tool cover -func=coverage-all.out
+
+cover-ci: cover
+	goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN

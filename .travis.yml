@@ -7,6 +7,10 @@ go:
   - 1.8.x
   - master
 
+install:
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/mattn/goveralls
+
 script:
   - make test
-  - make cover
+  - make cover-cli
