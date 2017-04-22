@@ -10,8 +10,7 @@ This is a port of a port.  Put simply my javascript experience and knowledge is 
 This is currently under active development and is not ready.  I will merge it into the master branch when it is ready to be used/tested/broken.  That being said I do not guarantee any functionality or that it will be kept up to date if google changes their API.
 
 ## TODO:
-* Setup unit tests.
-* Setup CI job in travis-ci to run the unit tests on commit.
+* Setup unit tests. (in progress)
 * Test and (probably) fix the askResponse function in ResponseBuilder.go.
 * Add various other handlers to abstract interacting with the API based on documentation [here.](https://developers.google.com/actions/reference/conversation)
 * Add examples/sample code of how to use it.
