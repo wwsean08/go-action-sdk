@@ -14,8 +14,8 @@ type ExpectedInput struct {
 }
 
 type ExpectedIntent struct {
-	Intent          string         `json:"intent"`
-	InputValueSpec_ InputValueSpec `json:"input_value_spec"`
+	Intent          string          `json:"intent"`
+	InputValueSpec_ *InputValueSpec `json:"input_value_spec,omitempty"`
 }
 
 type FinalResponse struct {
@@ -38,5 +38,5 @@ type SpeechResponse struct {
 
 type InputPrompt struct {
 	InitialPrompts []SpeechResponse `json:"initial_prompts"`
-	NoInputPrompts []SpeechResponse `json:"no_input_prompts"`
+	NoInputPrompts []SpeechResponse `json:"no_input_prompts,omitempty"`
 }
