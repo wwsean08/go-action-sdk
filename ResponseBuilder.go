@@ -28,13 +28,11 @@ type ResponseBuilder interface {
 }
 
 type defaultResponse struct {
-	rootResponse api.RootResponse
 }
 
 // Create a response builder object used to respond to the request
 func NewResponseBuilder() ResponseBuilder {
-	rootResponse := api.RootResponse{}
-	return defaultResponse{rootResponse: rootResponse}
+	return defaultResponse{}
 }
 
 func (r defaultResponse) TellResponseSSML(message string, conversationToken *string) api.RootResponse {
@@ -46,7 +44,7 @@ func (r defaultResponse) TellResponse(message string, conversationToken *string)
 }
 
 func (r defaultResponse) tellResponse(message string, conversationToken *string, mode MessageMode) api.RootResponse {
-	rootr := r.rootResponse
+	rootr := api.RootResponse{}
 	rootr.ExpectUserResponse = false
 	fResponse := api.FinalResponse{}
 	sResponse := api.SpeechResponse{TextToSpeech: &message, SSML: nil}
@@ -71,7 +69,8 @@ func (r defaultResponse) AskResponse(message string, conversationToken *string, 
 }
 
 func (r defaultResponse) askResponse(message string, conversationToken *string, noInputPrompt []string, mode MessageMode) api.RootResponse {
-	rootr := r.rootResponse
+	// TODO: Add some validation, for example noInputPrompt has a limit of 3 per https://developers.google.com/actions/reference/conversation#InputPrompt
+	rootr := api.RootResponse{}
 	rootr.ExpectUserResponse = true
 	// if conversationToken is a blank string it'll still get omitted at the json
 	// serialization layer which is what we want
@@ -105,8 +104,11 @@ func (r defaultResponse) askResponse(message string, conversationToken *string, 
 	eIntent := api.ExpectedIntent{Intent: api.TEXT_INTENT}
 	// TODO: Change this limit, currently the API only allows one response per https://developers.google.com/actions/reference/conversation
 	eIntentSlice := make([]api.ExpectedIntent, 1)
+	eInputsSlice := make([]api.ExpectedInput, 1)
 	eIntentSlice[0] = eIntent
 	eInputs.PossibleIntents = eIntentSlice
+	eInputsSlice[0] = eInputs
+	rootr.ExpectedInputs = eInputsSlice
 
 	return rootr
 }
