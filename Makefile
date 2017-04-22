@@ -14,7 +14,7 @@ BIN      = $(GOPATH)/bin
 BASE     = $(GOPATH)/src/$(PACKAGE)
 packages =$(shell $(GO) list ./... | grep -v /vendor/)
 
-.PHONY: clean test fmt vendor cover
+.PHONY: clean test fmt vendor cover cover-ci
 
 default: test
 
