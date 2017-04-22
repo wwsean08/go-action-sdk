@@ -19,7 +19,7 @@ type ExpectedIntent struct {
 }
 
 type FinalResponse struct {
-	SpeechResponse_ SpeechResponse `json:"speech_response"`
+	SpeechResponse_ SpeechResponse `json:"speech_response,omitempty"`
 }
 
 type InputValueSpec struct {
