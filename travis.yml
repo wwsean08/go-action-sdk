@@ -1,5 +1,6 @@
 language: go
 
+# Just touching the file to kick off my first test build, forgot to enable it before adding the file
 go:
   - 1.6
   - 1.7
