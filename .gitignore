@@ -10,5 +10,9 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+# Explicitly call out files created by make cover even though it's covered by *.out
+coverage.out
+coverage-all.out
+
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
