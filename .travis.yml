@@ -1,0 +1,16 @@
+language: go
+
+# Just touching the file to kick off my first test build, forgot to enable it before adding the file
+go:
+  - 1.6
+  - 1.7
+  - 1.8.x
+  - master
+
+install:
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/mattn/goveralls
+
+script:
+  - make test
+  - make cover-ci
