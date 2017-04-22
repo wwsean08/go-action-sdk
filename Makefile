@@ -40,4 +40,4 @@ cover:
 	go tool cover -func=coverage-all.out
 
 cover-ci: cover
-	goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+	goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $(COVERALLS_TOKEN)
