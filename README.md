@@ -1,4 +1,5 @@
 # Go Action SDK (port of the google action java sdk)
+[![Build Status](https://travis-ci.org/wwsean08/go-action-sdk.svg?branch=master)](https://travis-ci.org/wwsean08/go-action-sdk) [![Coverage Status](https://coveralls.io/repos/github/wwsean08/go-action-sdk/badge.svg?branch=feature%2Ftest_and_improve)](https://coveralls.io/github/wwsean08/go-action-sdk?branch=feature%2Ftest_and_improve)
 
 ## Warning
 This is currently an extremely alpha SDK, maybe even pre-alpha, it is not ready for prime time and comes with no guarantees that it will actually work for you.  It has worked for my limited test cases, if you do use it and run into issues feel free to open an issue however it's possible I will not maintain this in the long term depending on life and other factors.
