@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/wwsean08/go-action-sdk.svg?branch=master)](https://travis-ci.org/wwsean08/go-action-sdk) [![Coverage Status](https://coveralls.io/repos/github/wwsean08/go-action-sdk/badge.svg?branch=master)](https://coveralls.io/github/wwsean08/go-action-sdk?branch=master)
 
 ## Warning
-This is currently an extremely alpha SDK, maybe even pre-alpha, it is not ready for prime time and comes with no guarantees that it will actually work for you.  It has worked for my limited test cases, if you do use it and run into issues feel free to open an issue however it's possible I will not maintain this in the long term depending on life and other factors.
+This is currently an extremely alpha SDK, maybe even pre-alpha, it is not ready for prime time and comes with no guarantees that it will actually work for you, or that the interfaces won't change (in fact at this moment there are changes planned).  It has worked for my limited test cases, if you do use it and run into issues feel free to open an issue however it's possible I will not maintain this in the long term depending on life and other factors.
 
 ## About
 This is a port of a port.  Put simply my javascript experience and knowledge is minimal at best, however [frogermcs](https://github.com/frogermcs/Google-Actions-Java-SDK) ported the action sdk google released from javascript to java.  I know java and since I wanted to work in go to make containerization easier and smaller I have ported his work to Go which is my goto language currently.
