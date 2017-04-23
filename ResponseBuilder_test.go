@@ -9,7 +9,8 @@ func TestDefaultResponse_TellResponseReturnsExpectedOutput(t *testing.T) {
 	builder := NewResponseBuilder()
 	cToken := "42"
 	message := "This Is A Test"
-	response := builder.TellResponse(message, &cToken)
+	response, err := builder.TellResponse(message, &cToken)
+	assert.NoError(t, err)
 	assert.False(t, response.ExpectUserResponse)
 	assert.Nil(t, response.ExpectedInputs)
 	assert.Equal(t, &cToken, response.ConversationToken)
@@ -21,7 +22,8 @@ func TestDefaultResponse_TellResponseSSMLReturnsExpectedOutput(t *testing.T) {
 	builder := NewResponseBuilder()
 	cToken := "42"
 	message := "<s>This Is A Test</s>"
-	response := builder.TellResponseSSML(message, &cToken)
+	response, err := builder.TellResponseSSML(message, &cToken)
+	assert.NoError(t, err)
 	assert.False(t, response.ExpectUserResponse)
 	assert.Nil(t, response.ExpectedInputs)
 	assert.Equal(t, &cToken, response.ConversationToken)
@@ -34,7 +36,8 @@ func TestDefaultResponse_AskResponseReturnsExpectedOutput(t *testing.T) {
 	builder := NewResponseBuilder()
 	cToken := "42"
 	message := "This Is A Test"
-	response := builder.AskResponse(message, &cToken, nil)
+	response, err := builder.AskResponse(message, &cToken, nil)
+	assert.NoError(t, err)
 	assert.True(t, response.ExpectUserResponse)
 	assert.Nil(t, response.FinalResponse_)
 	assert.NotNil(t, response.ExpectedInputs)
@@ -53,7 +56,8 @@ func TestDefaultResponse_AskResponseReturnsExpectedOutput(t *testing.T) {
 	noInputPromptStr := "Nevermind"
 	noInputPromptSlice := make([]string, 1)
 	noInputPromptSlice[0] = noInputPromptStr
-	response = builder.AskResponse(message, &cToken, noInputPromptSlice)
+	response, err = builder.AskResponse(message, &cToken, noInputPromptSlice)
+	assert.NoError(t, err)
 	assert.True(t, response.ExpectUserResponse)
 	assert.Nil(t, response.FinalResponse_)
 	assert.NotNil(t, response.ExpectedInputs)
@@ -74,7 +78,8 @@ func TestDefaultResponse_AskResponseSSMLReturnsExpectedOutput(t *testing.T) {
 	builder := NewResponseBuilder()
 	cToken := "42"
 	message := "This Is A Test"
-	response := builder.AskResponseSSML(message, &cToken, nil)
+	response, err := builder.AskResponseSSML(message, &cToken, nil)
+	assert.NoError(t, err)
 	assert.True(t, response.ExpectUserResponse)
 	assert.Nil(t, response.FinalResponse_)
 	assert.NotNil(t, response.ExpectedInputs)
@@ -93,7 +98,8 @@ func TestDefaultResponse_AskResponseSSMLReturnsExpectedOutput(t *testing.T) {
 	noInputPromptStr := "Nevermind"
 	noInputPromptSlice := make([]string, 1)
 	noInputPromptSlice[0] = noInputPromptStr
-	response = builder.AskResponseSSML(message, &cToken, noInputPromptSlice)
+	response, err = builder.AskResponseSSML(message, &cToken, noInputPromptSlice)
+	assert.NoError(t, err)
 	assert.True(t, response.ExpectUserResponse)
 	assert.Nil(t, response.FinalResponse_)
 	assert.NotNil(t, response.ExpectedInputs)
@@ -107,4 +113,35 @@ func TestDefaultResponse_AskResponseSSMLReturnsExpectedOutput(t *testing.T) {
 	assert.Len(t, response.ExpectedInputs[0].InputPrompt_.NoInputPrompts, 1)
 	assert.Equal(t, &noInputPromptStr, response.ExpectedInputs[0].InputPrompt_.NoInputPrompts[0].SSML)
 	assert.Nil(t, response.ExpectedInputs[0].InputPrompt_.NoInputPrompts[0].TextToSpeech)
+}
+
+func TestDefaultResponse_AskResponseReturnsTooLongError(t *testing.T) {
+	builder := NewResponseBuilder()
+	cToken := "42"
+	message := "This Is A Test"
+	noInputPromptSlice := []string{"foo", "bar", "baz", "foobar"}
+
+	_, err := builder.AskResponse(message, &cToken, noInputPromptSlice)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "TooLongError")
+}
+
+func TestDefaultResponse_TellResponseNonASCIIError(t *testing.T) {
+	builder := NewResponseBuilder()
+	cToken := "42"
+	message := "ç"
+
+	_, err := builder.TellResponse(message, &cToken)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "NonASCIIIError:")
+}
+
+func TestDefaultResponse_AskResponseNonASCIIError(t *testing.T) {
+	builder := NewResponseBuilder()
+	cToken := "42"
+	message := "ç"
+
+	_, err := builder.AskResponse(message, &cToken, nil)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "NonASCIIIError:")
 }
