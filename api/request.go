@@ -11,7 +11,7 @@ type RootRequest struct {
 type Conversation struct {
 	ConversationID    *string `json:"conversation_id"`
 	ConversationToken *string `json:"conversation_token"`
-	Type              *string `json:"type"`
+	Type              int `json:"type"`
 	//Type Was an enum in the java version, may need to be changed
 }
 
@@ -41,7 +41,7 @@ type Argument struct {
 type RawInput struct {
 	CreateTime *Time   `json:"create_time"`
 	Query      *string `json:"query"`
-	InputType  *string `json:"input_type"`
+	InputType  int     `json:"input_type"`
 	//InputType was an enuim in java version, may need to be changed
 }
 
