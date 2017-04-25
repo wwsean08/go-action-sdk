@@ -2,7 +2,7 @@ package api
 
 // RootResponse object which will be formatted to json and sent back to google and onto the user.
 type RootResponse struct {
-	ConversationToken  *string         `json:"conversation_token"`
+	ConversationToken  *string         `json:"conversation_token,omitempty"`
 	ExpectUserResponse bool            `json:"expect_user_response"`
 	ExpectedInputs     []ExpectedInput `json:"expected_inputs,omitempty"`
 	FinalResponse_     *FinalResponse  `json:"final_response,omitempty"`
