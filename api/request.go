@@ -11,7 +11,7 @@ type RootRequest struct {
 type Conversation struct {
 	ConversationID    *string `json:"conversation_id"`
 	ConversationToken *string `json:"conversation_token"`
-	Type              int `json:"type"`
+	Type              int     `json:"type"`
 	//Type Was an enum in the java version, may need to be changed
 }
 
