@@ -12,7 +12,7 @@ VERSION ?= $(shell git describe --tags --always --dirty --match=v* 2> /dev/null 
 			cat $(CURDIR)/.version 2> /dev/null || echo v0)
 BIN      = $(GOPATH)/bin
 BASE     = $(GOPATH)/src/$(PACKAGE)
-packages =$(shell $(GO) list ./... | grep -v /vendor/)
+packages =$(shell $(GO) list ./... | grep -v -e /vendor/ -e /sample)
 
 .PHONY: clean test fmt vendor cover cover-ci
 
